@@ -1,4 +1,4 @@
-FROM emmanuel/baseimage-ubuntu-core-1404:0.0.1
+FROM nordstrom/baseimage-ubuntu-core-1404:latest
 MAINTAINER Emmanuel Gomez "emmanuel@gomez.io"
 
 # http://s3.amazonaws.com/influxdb/influxdb_0.8.0_amd64.deb
