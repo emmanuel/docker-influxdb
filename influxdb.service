@@ -10,15 +10,18 @@ PermissionsStartOnly=true
 EnvironmentFile=/etc/environment
 Environment="ENV=test"
 
-ExecStart=/usr/bin/docker run --rm \
+ExecStart=/usr/bin/docker run \
   --name influxdb-%i \
-  --env INFLUXDB_SERVER_NUMBER=%i \
   --hostname influxdb-%i.${ENV}.cluster.local \
   --dns-search ${ENV}.cluster.local \
-  --publish 2003:2003/udp \
-  emmanuel/influxdb:latest
+  --env INFLUXDB_SERVER_NUMBER=%i \
+  --publish 8086:8086 \
+  --publish 8083:8083 \
+  --publish 8090:8090 \
+  --publish 8099:8099 \
+  nordstrom/influxdb:latest
 
-ExecStop=/usr/bin/docker rm influxdb-%i
+ExecStop=/usr/bin/docker kill influxdb-%i
 
 [X-Fleet]
 X-Conflicts=influxdb@*.service
