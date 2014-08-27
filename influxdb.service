@@ -1,0 +1,24 @@
+[Unit]
+Description=InfluxDB daemon
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=30
+PermissionsStartOnly=true
+# ReadOnlyDirectories=/etc
+EnvironmentFile=/etc/environment
+Environment="ENV=test"
+
+ExecStart=/usr/bin/docker run --rm \
+  --name influxdb-%i \
+  --env INFLUXDB_SERVER_NUMBER=%i \
+  --hostname influxdb-%i.${ENV}.cluster.local \
+  --dns-search ${ENV}.cluster.local \
+  --publish 2003:2003/udp \
+  emmanuel/influxdb:latest
+
+ExecStop=/usr/bin/docker rm influxdb-%i
+
+[X-Fleet]
+X-Conflicts=influxdb@*.service
