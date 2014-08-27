@@ -11,10 +11,11 @@ RUN mkdir -p /opt/influxdb/shared/data && \
     chown -R daemon:daemon /opt/influxdb
 
 USER daemon
-# Admin port
-EXPOSE 8083
+
 # HTTP API port
 EXPOSE 8086
+# Admin port
+EXPOSE 8083
 # Raft port
 EXPOSE 8090
 # Replication port (protobuf)
